@@ -3,7 +3,7 @@ function (head, req) {
     , rows = []
     , row
 
-  start({'headers': {'Content-Type' : 'application/json'}, 'code' : 200})
+  start({'headers': {'Content-Type' : 'application/json;charset=utf-8'}, 'code' : 200})
 
   while (row = getRow()) {
     rows.push(row.doc)

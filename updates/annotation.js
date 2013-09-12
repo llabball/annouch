@@ -1,5 +1,5 @@
 function(doc, req) {
-	var resp = {headers: {'Content-Type': 'application/json'}}
+	var resp = {headers: {'Content-Type': 'application/json;charset=utf-8'}}
 	var data = {}
 
 	if (req.body.length === 0 || req.body === 'undefined') {
@@ -43,7 +43,7 @@ function(doc, req) {
 	if (req.method !== 'DELETE')
 		resp.headers.Location = 'http://' + req.headers.Host + '/store/' + req.headers['x-couchdb-vhost-path'] + '/' + doc.id
 
-	resp.body = JSON.stringify(req)
+	resp.body = JSON.stringify(doc)
 
 	return [doc,resp]
 }
