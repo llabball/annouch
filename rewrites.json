@@ -10,11 +10,6 @@
        "method": "GET"
     },
     {
-       "from": "",
-       "to": "index.json",
-       "method": "GET"
-    },
-    {
        "from": "annotations",
        "to": "_list/annotations/annotations",
        "method": "GET"
@@ -47,5 +42,15 @@
          "key": ":uri",
          "include_docs": "true"
        }
+    },
+    {
+       "from": "/",
+       "to": "index.json",
+       "method": "GET"
+    },
+    {
+       "from": "",
+       "to": "index.json",
+       "method": "GET"
     }
 ]
