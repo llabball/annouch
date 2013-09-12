@@ -27,9 +27,9 @@ function(doc, req) {
 		//create a new annotation
 		doc = data
 		doc._id = doc.id = req.uuid //the bookmarklet expects the property id
-		resp.code = 201
+		resp.code = 201 //workaround until webkit can handle 303 SEE OTHER over CORS
 	} else {
-		resp.code = 202
+		resp.code = 202 //workaround until webkit can handle 303 SEE OTHER over CORS
 		//update an annotation
 		for (p in data) {
 			if (p !== '_id' && p !== '_revisions' && data.hasOwnProperty(p)) {
@@ -40,7 +40,10 @@ function(doc, req) {
 			doc._deleted = true
 	}
 	
-	resp.body = JSON.stringify(doc)
+	if (req.method !== 'DELETE')
+		resp.headers.Location = 'http://' + req.headers.Host + '/store/' + req.headers['x-couchdb-vhost-path'] + '/' + doc.id
+
+	resp.body = JSON.stringify(req)
 
 	return [doc,resp]
 }
