@@ -17,7 +17,7 @@ function(doc, req) {
 	try {
 		data = JSON.parse(req.body)
 	} catch (e) {
-		resp.code = 500
+		resp.code = 417
 		resp.body = JSON.stringify({error: 'aborted', reason: 'could not parse content'})
 		return [null,resp]
 	}
@@ -40,10 +40,12 @@ function(doc, req) {
 			doc._deleted = true
 	}
 	
-	if (req.method !== 'DELETE')
+	if (req.method !== 'DELETE') {
 		resp.headers.Location = 'http://' + req.headers.Host + '/store/' + req.headers['x-couchdb-vhost-path'] + '/' + doc.id
-
-	resp.body = JSON.stringify(doc)
+		resp.body = JSON.stringify(doc)
+	} else {
+		resp.code = 204
+	}
 
 	return [doc,resp]
 }
